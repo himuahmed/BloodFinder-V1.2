@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Person } from '../app-person/interfaces/person';
 import { AuthService } from '../auth/services/auth.service';
+import { PrivateChatServiceService } from '../shared-services/private-ChatService.service';
 import { UserServiceService } from '../shared-services/user-service.service';
 
 @Component({
@@ -16,7 +17,7 @@ export class SidenavComponent implements OnInit {
   isPersonLoaded = false;
   personn:Person;
   panelOpenState = false;
-  constructor(private authService: AuthService, private userService:UserServiceService, private router:Router) { }
+  constructor(private authService: AuthService, private userService:UserServiceService, private router:Router, private privateChatService: PrivateChatServiceService) { }
 
   ngOnInit() {
 

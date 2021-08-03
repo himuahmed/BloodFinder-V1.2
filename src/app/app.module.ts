@@ -30,15 +30,20 @@ import {MatListModule} from '@angular/material/list';
 import {MatDialogModule} from '@angular/material/dialog';
 import { RequestBloodDialogComponent } from './SharedComponents/request-blood-dialog/request-blood-dialog.component';
 import {MatSelectModule} from '@angular/material/select';
-
+import { PrivateChatComponentComponent } from './private-ChatComponent/private-ChatComponent.component';
+import { TimeagoModule } from 'ngx-timeago';
+import { SendMessageDialogComponent } from './SharedComponents/send-message-dialog/send-message-dialog.component';
 
 @NgModule({
-  declarations: [					
+  declarations: [							
     AppComponent,
       ToolbarComponent,
       SidenavComponent,
       RecentBloodRequestsComponent,
-      RequestBloodDialogComponent
+      RequestBloodDialogComponent,
+      PrivateChatComponentComponent,
+      SendMessageDialogComponent
+
    ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -63,7 +68,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatListModule,
     MatDialogModule,
     ReactiveFormsModule,
-    MatSelectModule
+    MatSelectModule,
+    TimeagoModule.forRoot()
   ],
   providers: [
     AllInterceptors

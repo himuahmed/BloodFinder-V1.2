@@ -6,6 +6,7 @@ import { Observable, Subject } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { PaginatedResult } from '../global-interfaces/pagination';
 import { map } from 'rxjs/operators';
+import { IHttpConnectionOptions } from '@microsoft/signalr';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,15 @@ import { map } from 'rxjs/operators';
 export class GlobalChatServiceService {
   readonly POST_URL = environment.apiUrl + "message/send";
   readonly FetchGlobalMessage_Url = environment.apiUrl + "message/GetGlobalMessage";
-  private  connection: any = new signalR.HubConnectionBuilder().withUrl("https://localhost:44322/MessageHub")   // mapping to the chathub as in startup.cs
+   jwtToken = '?token=' + localStorage.getItem('token');
+
+/*   options: IHttpConnectionOptions = {
+    accessTokenFactory: () => {
+      return localStorage.getItem('token');
+    }
+  }; */
+
+  private  connection: any = new signalR.HubConnectionBuilder().withUrl("https://localhost:44322/MessageHub"+ this.jwtToken)   // mapping to the chathub as in startup.cs
   .configureLogging(signalR.LogLevel.Information)
   .build();
 
@@ -24,8 +33,10 @@ export class GlobalChatServiceService {
     this.connection.onclose(async () => {
       await this.start();
     });
-   this.connection.on("globalMessageReceived", (user, message) => { this.mapReceivedMessage(user, message); });
-   this.start();  
+   this.connection.on("globalMessageReceived", (message) => {
+      this.mapReceivedMessage(message); 
+    });
+     this.start();  
   }
 
     // Strart the connection
@@ -39,9 +50,9 @@ export class GlobalChatServiceService {
       } 
     }
 
-    private mapReceivedMessage(user: string, message: string): void {
-      this.receivedMessageObject.user = user;
-      this.receivedMessageObject.message = message;
+    private mapReceivedMessage(message: string): void {
+      this.receivedMessageObject.user = message;
+      //this.receivedMessageObject.message = message;
       this.sharedObj.next(this.receivedMessageObject);
    }
 
@@ -57,7 +68,7 @@ export class GlobalChatServiceService {
 
   getGlobalMessages(pageNumber?:number, pageSize?:number): Observable<PaginatedResult<GlobalMessage[]>>{
     const paginatedResult: PaginatedResult<GlobalMessage[]> = new PaginatedResult<GlobalMessage[]>();
-    let params = new HttpParams;
+    let params = new HttpParams();
 
     if(pageNumber != null && pageSize != null){
       params = params.append('pageNumber', pageNumber);

@@ -21,11 +21,10 @@ export class GlobalChatComponent implements OnInit {
 
   constructor(private chatService: GlobalChatServiceService, private userService:UserServiceService) { }
 
-  //color: ThemePalette = 'rgb(21 119 122 / 90%)';
   mode: ProgressSpinnerMode = 'indeterminate';
   value = 50;
   diameter = 60;
-  //strokeWidth = 0;
+ 
 
   msgDto: GlobalMessage = new GlobalMessage();
   msgInboxArray =  [];
@@ -35,6 +34,7 @@ export class GlobalChatComponent implements OnInit {
   pageNumber = 1;
   failedToLoadMessage = false;
   isLoading = true;
+  
   ngOnInit() {
     this.chatService.retrieveMappedObject().subscribe( (receivedObj: GlobalMessage) => { this.addToInbox(receivedObj);});  // calls the service method to get the new messages sent
     this.userService.getCurrentUser().subscribe(res=>
@@ -49,12 +49,14 @@ export class GlobalChatComponent implements OnInit {
     if ( this.chatScrollBar.nativeElement.scrollTop === 0) {
       console.log("End");
       this.pageNumber = this.pageNumber+1;
-      this.getGlobalMessages(this.pageNumber,100);
+      this.getGlobalMessages(this.pageNumber);
       
     }
   }
 
   getGlobalMessages(pageNumber?:number, pageSize?:number){
+    pageNumber = this.pageNumber;
+    pageSize = 50;
     this.chatService.getGlobalMessages(pageNumber, pageSize).subscribe(res=>{
       this.isLoading = false;
       if(res.result != null){
@@ -73,6 +75,7 @@ export class GlobalChatComponent implements OnInit {
   send(): void {
     this.msgDto.user = this.currentUser.fullName;
     this.msgDto.userId = this.currentUser.userId;
+    debugger
     if(this.msgDto) {
       if(this.msgDto.message.length == 0){
         window.alert("Both fields are required.");
@@ -85,6 +88,7 @@ export class GlobalChatComponent implements OnInit {
   }
 
   addToInbox(obj: GlobalMessage) {
+    debugger
     let newObj = obj.user;
     this.msgInboxArray.push(newObj);
     this.resetMsgBox();

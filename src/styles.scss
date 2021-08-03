@@ -71,5 +71,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .enable-scrollbar{
-    overflow: auto;
+    overflow: auto !important;
+  }
+
+  .curson-pointer{
+      cursor: pointer;
   }

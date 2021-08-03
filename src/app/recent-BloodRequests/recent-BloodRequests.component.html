@@ -38,7 +38,7 @@
           <div class="font-smaller">
             {{mObj.description}}
           </div>
-          <div mat-line class="font-smallest text-disabled"> {{mObj.createdAt | date}} </div>
+          <div mat-line class="font-smallest text-disabled"> {{mObj.createdAt | timeago:live}} </div>
         </div>
       </mat-list-item>
       <mat-divider></mat-divider>

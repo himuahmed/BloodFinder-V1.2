@@ -1,0 +1,14 @@
+<div fxLayout="column" class="dialog" fxFlex="100">
+  <div fxLayoutAlign="center center">
+    <h2 style="color: rgb(21 119 122 / 90%);">
+      Sending message to "{{data.name}}".
+    </h2>
+  </div>
+    <div fxFlex="100" fxLayout="column" fxLayoutGap="20px">
+      <textarea type="text" class="messageField" [(ngModel)]="message.Message"  matInput cdkTextareaAutosize  #autosize="cdkTextareaAutosize"cdkAutosizeMinRows="3" cdkAutosizeMaxRows="10" ></textarea>
+      <div fxLayoutGap="20px">
+        <button mat-flat-button color="primary" [mat-dialog-close]="closeDialog" (click)="sendMessage()"><mat-icon aria-hidden="false" aria-label="Send">send</mat-icon>&nbsp;&nbsp;Send</button>
+        <button mat-flat-button [mat-dialog-close]="true" color="warn"  >Cancel</button>
+      </div>
+    </div>
+</div>

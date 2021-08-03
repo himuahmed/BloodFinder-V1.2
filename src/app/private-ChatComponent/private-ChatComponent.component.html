@@ -1,0 +1,61 @@
+<div style="min-height: 100% !important;" >
+  <mat-card  class="message-component card-padding-0" fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.xs="column">
+      <!--     Message lists  -->
+    <mat-card fxFlex="30" class="enable-scrollbar" class="chatPersons">
+      <mat-card-content >
+        <div class="global-chat-box">
+          <ul>
+            <li *ngFor="let mObj of chatListArr">
+            <mat-card class="mat-card-test" (click)="fetchMessages(mObj.personImChattingWith.userId)">
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+                <span class="chatList-userName">{{mObj.personImChattingWith.fullName}}</span>
+                <span></span>
+              </div>
+              <div fxLayout="row" >
+                <p class="font-smaller text-disabled">{{mObj.lastMessage.message}}</p>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="end end">
+                <span class="font-smallest text-disabled">{{mObj.lastMessage.createdAt | timeago:live}}</span>
+              </div>
+            </mat-card>
+          </li>
+          
+          </ul>
+        </div>
+      </mat-card-content>
+    </mat-card>
+   <!--  End of messageList -->
+  <!--   Messages  -->
+    <div *ngIf="isMessaging" fxFlex="100" fxLayout='column'>
+        <div  class="enable-scrollbar"  fxLayout='column' fxFlex="95">
+            <div  class="global-chat-box" (scroll)="onScroll($event)" #globalChatScrollBar>
+              <div *ngIf="messageArray.length > 0">
+                <div *ngFor="let mObj of messageArray">
+                   <div *ngIf="mObj.sender !== currentUserId" class="messages messages--received">
+                      <div class="message"> {{mObj.message}} </div>
+                   </div>
+                   <div *ngIf="mObj.sender === currentUserId" class="messages messages--sent">
+                    <div class="message"> {{mObj.message}} </div>
+                   </div>
+                  </div> 
+              </div>
+            </div>
+        </div> 
+  
+        <div fxLayout="row" fxLayout.xs="column">
+            <input matInput fxFlex="100"  type="text" placeholder="Start messaging......" class="chat-inputField" [(ngModel)]="message.Message"/>
+            <button mat-flat-button fxFlex="10" fxFlex.xs="100" class="send-btn" color="warn" (click)= "sendMessage()"><mat-icon aria-hidden="false" aria-label="Send">send</mat-icon>&nbsp;&nbsp;Send</button> 
+        </div>
+    </div>
+    <div *ngIf="!isMessaging" fxFlex="100" fxLayout='row' fxLayoutAlign="center center">
+        <div  fxLayout='column' fxFlex="100" fxLayoutAlign="center center">
+          <span class="null-message-font">
+              Start Messaging.
+          </span>
+        </div>
+    </div>
+   <!--  End of messages -->
+  </mat-card>
+</div>
+
+

@@ -1,4 +1,9 @@
 .dialog{
-    min-width: 200px;
+    min-width: 500px;
 }
 
+@media only screen and (max-width: 600px) {
+    .dialog{
+        min-width: 100%;
+    }
+}

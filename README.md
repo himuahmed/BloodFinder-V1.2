@@ -1,6 +1,18 @@
-# QtagSPA
+# QtagSPA Features
+  - Login/Registartion (Authentication via jwt token) 
+  - Global chat (Shoutbox) for all users (Only logged users can send message).
+  - Private one to message (Live if both users are online)
+  - Blood Search via group or location.
+  - Add/Edit profile.
+  - Edit privacy (Contact/Email) of profile.
+  -Make forum like post for specific blood group.
+  
+# QtagSPA component Screenshots
+  ![Screenshot (3)](https://user-images.githubusercontent.com/34248175/128075659-ff4a27cd-e015-450b-9a22-411333709e3b.png)
+  ![Screenshot (4)](https://user-images.githubusercontent.com/34248175/128075667-f81f2760-46c8-4d38-b70a-8c4cec64fcb8.png)
+  ![Screenshot (5)](https://user-images.githubusercontent.com/34248175/128075676-f18e9a11-2702-401b-9eb8-79d1e4c2fc8a.png)
+  ![Screenshot (6)](https://user-images.githubusercontent.com/34248175/128075692-5ec64fcf-aa4a-411a-a785-6098ed25e6d8.png)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.0.
 
 ## Development server
 

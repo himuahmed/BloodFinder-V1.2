@@ -14,6 +14,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { bounceInRightOnEnterAnimation} from 'angular-animations';
+import { UserServiceService } from 'src/app/shared-services/user-service.service';
+import { MatDialog } from '@angular/material/dialog';
+import { SendMessageDialogComponent } from 'src/app/SharedComponents/send-message-dialog/send-message-dialog.component';
 
 @Component({
   selector: 'app-bloodSearch',
@@ -43,6 +46,7 @@ export class BloodSearchComponent implements OnInit,OnDestroy {
   selectedUpazila:Upazila;
   isLoading = true;
   isFiltered = false;
+  loggedInUserId:string;
 
   bloodGroupList: bloodGroup[] = [
     {name: 'A RhD positive (A+)', value:'A+'},
@@ -56,17 +60,19 @@ export class BloodSearchComponent implements OnInit,OnDestroy {
   ]
   selectedBloodGroup:string;
   
-  displayedColumns: string[] = ['bloodgroup', 'name', 'email', 'contact', 'division', 'district', 'upazila'/* , 'contactNow' */];
+  displayedColumns: string[] = ['bloodgroup', 'name', 'email', 'contact', 'division', 'district', 'upazila', 'sendMessage'/* , 'contactNow' */];
   //persolList: Person[] = [];
   personList = new MatTableDataSource<any>([]);
   totalPerson = 0;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private externalFileReaderService:ExternalFileReaderService, private bloodSearchService: BloodsearchService,readonly snackBar: MatSnackBar) { }
+  constructor(private externalFileReaderService:ExternalFileReaderService, private bloodSearchService: BloodsearchService,
+    readonly snackBar: MatSnackBar, private userService: UserServiceService, public dialog: MatDialog) { }
   //AIzaSyA3tHeCwkt4eXWSAHxWFpx2KzgVfIXfhQE
   ngOnInit() {
     //this.getAllBdLocations();
+    this.loggedInUserId = this.userService.getLoggedinUserId()
     this.getDistricts();
     this.getDivisions();
     this.getUpazilas();
@@ -88,6 +94,11 @@ export class BloodSearchComponent implements OnInit,OnDestroy {
     });
     this.isLoading = false;
   }
+  openMessageDialog(receiverId, name) {
+    this.dialog.open(SendMessageDialogComponent,{
+      data:{userId: receiverId, name: name},
+    });
+  }
 
   resetSearch(){
     this.isFiltered = false;
@@ -101,9 +112,18 @@ export class BloodSearchComponent implements OnInit,OnDestroy {
     this.getDivisions();
     this.getDistricts();
     this.getUpazilas();
+    this.getAllBloodDonors();
     this.personList = new MatTableDataSource<any>([]);
     this.personList.paginator = this.paginator;
     this.isLoading = false;
+  }
+
+ 
+
+  sendMessage(receiverId){
+    console.log("himuuuuuuuuuuuuuuuuuuuuu" + receiverId);
+    let x =  this.userService.getLoggedinUserId();
+    console.log(x);
   }
 
   multiFactorPersonFilter(){
