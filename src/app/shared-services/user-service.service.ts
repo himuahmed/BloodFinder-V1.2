@@ -11,9 +11,16 @@ import { Person } from '../app-person/interfaces/person';
 export class UserServiceService {
 
   baseUrl = environment.apiUrl;
-  jwtHelper = new JwtHelperService()
+  jwtHelper = new JwtHelperService();
+  loggedInPerson: Person;
   constructor(private http:HttpClient) {
-   
+      try{
+         this.setLoggedInPerson();
+      }
+      catch(err){
+        console.log(err);
+        setTimeout(()=>this.setLoggedInPerson(), 5000);
+      }
    }
 
 
@@ -26,11 +33,18 @@ export class UserServiceService {
     return this.http.get<Person>(this.baseUrl + 'userandperson/getLoggedInUser');
   }
 
+  public async setLoggedInPerson(){
+      await this.getCurrentUser().subscribe(res=>{
+      if(res){
+          this.loggedInPerson = res;
+      }
+    });
+  }
+
   tokenDecoder()
   {
     const token =  localStorage.getItem('token');
     return this.jwtHelper.decodeToken(token);
-
   }
 
   getLoggedinUserId(){

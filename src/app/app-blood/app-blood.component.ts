@@ -8,11 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class AppBloodComponent implements OnInit {
 
   constructor() { 
-    console.log("Module loaded");
   }
 
   ngOnInit() {
-    console.log("Module loaded");
   }
 
 }

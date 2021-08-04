@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit,OnDestroy {
   login(){
     this.loginCred = Object.assign({}, this.loginForm.value);
     this.authService.login(this.loginCred).subscribe(next => {
+      this.userService.setLoggedInPerson();
       this.getPersonByUserId();
     },error=> {
       this.openSnackBar("Failed to log in", "close")
@@ -51,7 +52,7 @@ export class LoginComponent implements OnInit,OnDestroy {
   getPersonByUserId(){
     this.userService.getPersonByUserId().pipe(takeUntil(this.unsubscribe$)).subscribe(res=>{
       if(res){
-        this.router.navigate(['user']);
+        this.router.navigate(['dashboard']);
       }
     },error=>{
       this.isLoading = false;

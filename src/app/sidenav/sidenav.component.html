@@ -37,14 +37,10 @@
   </mat-drawer>
   
   <mat-drawer-content class="overflow-hidden" fxFlex="100" fxLayout="row">
-
-      
-
     <div fxFlex="100" fxLayout="column">
       <div (click)="toggleSideNav(drawer)">
         <app-toolbar></app-toolbar>
       </div>
-     
       <div class="sidenav-content" fxFlex="100" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column">        
             <div fxFlex="100" class="enable-scrollbar">
               <router-outlet></router-outlet>

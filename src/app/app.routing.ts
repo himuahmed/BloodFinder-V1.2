@@ -9,6 +9,6 @@ export const appRoutes: Routes = [
   {path:'dashboard', loadChildren:()=> import('./app-blood/app-blood.module').then(r=>r.AppBloodModule)},
   {path:'user', loadChildren:()=> import('./app-person/app-person.module').then(r=>r.AppPersonModule)},
   {path:'messages', component:PrivateChatComponentComponent, canActivate:[AuthGuard]},
- 
+  {path: '**', redirectTo: 'dashboard', pathMatch:'full'}
 ];
 

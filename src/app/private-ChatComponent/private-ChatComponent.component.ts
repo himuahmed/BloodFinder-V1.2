@@ -4,6 +4,7 @@ import { PrivateChatServiceService } from '../shared-services/private-ChatServic
 import { forEach as _forEach, cloneDeep as _cloneDeep } from 'lodash';
 import { UserServiceService } from '../shared-services/user-service.service';
 import { Person } from '../app-person/interfaces/person';
+import { AuthService } from '../auth/services/auth.service';
 
 @Component({
   selector: 'app-private-ChatComponent',
@@ -14,7 +15,7 @@ export class PrivateChatComponentComponent implements OnInit {
   @ViewChild('globalChatScrollBar') chatScrollBar: ElementRef;
   message:PrivateMessage = new PrivateMessage();
   chatWindowPerson:string;
-  arr = [1,2,3,4,5,6,3,3,2,2,2,2,3,3,23,1,12,2,2,22,2];
+  //arr = [1,2,3,4,5,6,3,3,2,2,2,2,3,3,23,1,12,2,2,22,2];
   chatListArr = [] ;
   currentUserId = '';
   currentUser:Person;
@@ -22,23 +23,29 @@ export class PrivateChatComponentComponent implements OnInit {
   messageArray = [];
   pageNumber = 1;
   isMessaging = false;
-  constructor(private privateChatService: PrivateChatServiceService, private userService:UserServiceService) { }
+  constructor(private privateChatService: PrivateChatServiceService, private userService:UserServiceService,private authService: AuthService) { }
   ngOnInit() {
-    //this.privateChatService.broadcastMessage("Sending message for private chat", "75c9e2ad-2f5b-433d-b842-d0c787cc06d1");
-    //this.sendMessage();
+    try{
+      this,this.getLoggedInUser();
+    }
+    catch(err){
+      setTimeout(()=>this.getLoggedInUser(), 5000);
+    }
+    this.privateChatService.retrieveMappedObject().subscribe( (receivedObj: PrivateMessage) => { 
+      this.addToInbox(receivedObj);
+    }); 
+    this.fetchChatList();
+  }
+
+  
+
+  getLoggedInUser(){
     this.userService.getCurrentUser().subscribe(res=>
       {
         this.currentUser = res;
         this.currentUserId = this.currentUser.userId;
         this.isLoggedIn = true;
       });
-    this.privateChatService.retrieveMappedObject().subscribe( (receivedObj: PrivateMessage) => { 
-      /* if(receivedObj.Sender === this.chatWindowPerson){
-        this.addToInbox(receivedObj);
-      } */
-      this.addToInbox(receivedObj);
-    }); 
-    this.fetchChatList();
   }
 
   onScroll(event: any){

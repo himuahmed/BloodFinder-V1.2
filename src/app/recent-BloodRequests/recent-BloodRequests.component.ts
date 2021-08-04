@@ -4,6 +4,8 @@ import { BloodRequestsServiceService } from '../shared-services/blood-RequestsSe
 import { forEach as _forEach, cloneDeep as _cloneDeep } from 'lodash';
 import { MatDialog } from '@angular/material/dialog';
 import { RequestBloodDialogComponent } from '../SharedComponents/request-blood-dialog/request-blood-dialog.component';
+import { AuthService } from '../auth/services/auth.service';
+
 
 
 @Component({
@@ -14,10 +16,17 @@ import { RequestBloodDialogComponent } from '../SharedComponents/request-blood-d
 export class RecentBloodRequestsComponent implements OnInit {
 
   bloodReqPosts:BloodRequestPost[] = [];
-  constructor(private bloodReqService: BloodRequestsServiceService,public dialog: MatDialog) { }
+  constructor(private bloodReqService: BloodRequestsServiceService,public dialog: MatDialog,public authService: AuthService) { }
 
   ngOnInit() {
-    this.fetchAllBloodRequests();
+      try{
+        this.fetchAllBloodRequests();
+      }catch(Err){
+        setTimeout(() => {
+          this.fetchAllBloodRequests()
+        }, 5000);
+      }
+    
   }
 
   fetchAllBloodRequests(){

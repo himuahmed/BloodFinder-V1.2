@@ -43,7 +43,7 @@
       </mat-list-item>
       <mat-divider></mat-divider>
     </mat-list>
-    <mat-card-actions>
+    <mat-card-actions *ngIf="authService.isLoggedIn()">
       <div fxLayout="row" fxLayoutAlign="end">
         <button  mat-mini-fab color="primary" aria-label="Example icon button with a bookmark icon" (click)="openDialog()">
           <mat-icon>plus_one</mat-icon>

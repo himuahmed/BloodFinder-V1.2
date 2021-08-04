@@ -34,16 +34,16 @@ import { PrivateChatComponentComponent } from './private-ChatComponent/private-C
 import { TimeagoModule } from 'ngx-timeago';
 import { SendMessageDialogComponent } from './SharedComponents/send-message-dialog/send-message-dialog.component';
 
+
 @NgModule({
-  declarations: [							
+  declarations: [								
     AppComponent,
       ToolbarComponent,
       SidenavComponent,
       RecentBloodRequestsComponent,
       RequestBloodDialogComponent,
       PrivateChatComponentComponent,
-      SendMessageDialogComponent
-
+      SendMessageDialogComponent,
    ],
   imports: [
     RouterModule.forRoot(appRoutes),
