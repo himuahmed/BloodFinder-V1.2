@@ -1,4 +1,4 @@
-import { Routes, RouterModule } from '@angular/router';
+/* import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../guards/auth.guard';
 import { AddPersonDetailsComponent } from './add-person-details/add-person-details.component';
 import { PersonProfileComponent } from './personProfile/personProfile.component';
@@ -13,4 +13,4 @@ const routes: Routes = [
    },
 ];
 
-export const PersonRoutes = RouterModule.forChild(routes);
+export const PersonRoutes = RouterModule.forChild(routes); */

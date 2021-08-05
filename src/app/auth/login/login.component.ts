@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit,OnDestroy {
   getPersonByUserId(){
     this.userService.getPersonByUserId().pipe(takeUntil(this.unsubscribe$)).subscribe(res=>{
       if(res){
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['']);
       }
     },error=>{
       this.isLoading = false;

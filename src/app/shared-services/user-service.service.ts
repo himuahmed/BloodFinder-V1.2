@@ -4,6 +4,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Person } from '../app-person/interfaces/person';
+import { AuthService } from '../auth/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +14,15 @@ export class UserServiceService {
   baseUrl = environment.apiUrl;
   jwtHelper = new JwtHelperService();
   loggedInPerson: Person;
-  constructor(private http:HttpClient) {
-      try{
-         this.setLoggedInPerson();
-      }
-      catch(err){
-        console.log(err);
-        setTimeout(()=>this.setLoggedInPerson(), 5000);
+  constructor(private http:HttpClient, private authServie:AuthService) {
+      if(this.authServie.isLoggedIn()){
+        try{
+          this.setLoggedInPerson();
+       }
+       catch(err){
+         console.log(err);
+         setTimeout(()=>this.setLoggedInPerson(), 5000);
+       }
       }
    }
 

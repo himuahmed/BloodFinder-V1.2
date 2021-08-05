@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AuthService } from '../auth/services/auth.service';
 import { UserServiceService } from '../shared-services/user-service.service';
 
@@ -10,6 +10,8 @@ import { UserServiceService } from '../shared-services/user-service.service';
 export class ToolbarComponent implements OnInit {
 
   personName:string;
+  @Output() sideNavOperation:EventEmitter<boolean> = new EventEmitter<boolean>();
+  sideNavOpened = true;
   constructor(private userService:UserServiceService,private authService:AuthService) { }
 
   ngOnInit() {
@@ -18,6 +20,11 @@ export class ToolbarComponent implements OnInit {
 
   isLoggedIn(){    
     return this.authService.isLoggedIn();
+  }
+
+  sideNav(){
+    this.sideNavOperation.emit(this.sideNavOpened);
+    this.sideNavOpened = !this.sideNavOpened;
   }
 
 }

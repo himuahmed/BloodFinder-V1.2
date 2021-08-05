@@ -32,13 +32,15 @@ export class PrivateChatServiceService {
 
 
     constructor(private http: HttpClient, private authService: AuthService) {
-      this.hubConnection.onclose(async () => {
-         this.start();
-      });
-      this.hubConnection.on("SendDM", (message) => {
-        this.mapReceivedMessage(message); 
-      });
-      this.start();
+      if(this.authService.isLoggedIn()){
+        this.hubConnection.onclose(async () => {
+          this.start();
+       });
+       this.hubConnection.on("SendDM", (message) => {
+         this.mapReceivedMessage(message); 
+       });
+       this.start();
+      }
     }
 
     private mapReceivedMessage(message: string): void {
@@ -59,6 +61,10 @@ export class PrivateChatServiceService {
 
     LeaveInvoke(){
       this.hubConnection.invoke("Leave");
+    }
+
+    updateMessageStatusInvoke(receiverId){
+      return this.hubConnection.invoke("UpdateMessageStatus", receiverId);
     }
 
 

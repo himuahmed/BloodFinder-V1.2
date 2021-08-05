@@ -5,6 +5,9 @@ import { forEach as _forEach, cloneDeep as _cloneDeep } from 'lodash';
 import { MatDialog } from '@angular/material/dialog';
 import { RequestBloodDialogComponent } from '../SharedComponents/request-blood-dialog/request-blood-dialog.component';
 import { AuthService } from '../auth/services/auth.service';
+import { SendMessageDialogComponent } from '../SharedComponents/send-message-dialog/send-message-dialog.component';
+import { Router } from '@angular/router';
+import { UserServiceService } from '../shared-services/user-service.service';
 
 
 
@@ -14,11 +17,14 @@ import { AuthService } from '../auth/services/auth.service';
   styleUrls: ['./recent-BloodRequests.component.scss']
 })
 export class RecentBloodRequestsComponent implements OnInit {
-
+  loggedInUserId:string = '';
   bloodReqPosts:BloodRequestPost[] = [];
-  constructor(private bloodReqService: BloodRequestsServiceService,public dialog: MatDialog,public authService: AuthService) { }
+  constructor(private bloodReqService: BloodRequestsServiceService,public dialog: MatDialog,public authService: AuthService,private userService:UserServiceService, private router:Router) { }
 
   ngOnInit() {
+    if(this.authService.isLoggedIn()){
+      this.loggedInUserId = this.userService.getLoggedinUserId();
+    }
       try{
         this.fetchAllBloodRequests();
       }catch(Err){
@@ -46,6 +52,18 @@ export class RecentBloodRequestsComponent implements OnInit {
 
   openDialog() {
     this.dialog.open(RequestBloodDialogComponent);
+  }
+
+  openMessageDialog(receiverId, name) {
+    if(this.authService.isLoggedIn()){
+      this.dialog.open(SendMessageDialogComponent,{
+        data:{userId: receiverId, name: name},
+      });
+    }
+    else{
+      this.router.navigate(['auth']);
+    }
+
   }
 
 }

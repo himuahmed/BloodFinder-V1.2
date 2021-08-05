@@ -107,7 +107,7 @@
           <td mat-cell *matCellDef="let row">
             <span *ngIf="row.userId !== loggedInUserId">
                 <!-- <mat-icon class="curson-pointer" (click)="sendMessage(row.userId)">email</mat-icon> -->
-                <mat-icon class="curson-pointer" (click)="openMessageDialog(row.userId, row.fullName)">email</mat-icon>
+                <mat-icon matTooltip="Send message to {{row.fullName}}" class="curson-pointer" (click)="openMessageDialog(row.userId, row.fullName)">email</mat-icon>
             </span>
         </td>
         </ng-container>
@@ -116,7 +116,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
       <!-- <mat-paginator [length]="totalPerson" [pageSize]="1"></mat-paginator> -->
-      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      <mat-paginator [pageSizeOptions]="[5,7, 10, 20]" showFirstLastButtons></mat-paginator>
   </div>
 </div>
 

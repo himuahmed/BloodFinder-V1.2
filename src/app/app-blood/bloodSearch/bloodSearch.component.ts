@@ -17,6 +17,9 @@ import { bounceInRightOnEnterAnimation} from 'angular-animations';
 import { UserServiceService } from 'src/app/shared-services/user-service.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SendMessageDialogComponent } from 'src/app/SharedComponents/send-message-dialog/send-message-dialog.component';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-bloodSearch',
@@ -68,11 +71,14 @@ export class BloodSearchComponent implements OnInit,OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private externalFileReaderService:ExternalFileReaderService, private bloodSearchService: BloodsearchService,
-    readonly snackBar: MatSnackBar, private userService: UserServiceService, public dialog: MatDialog) { }
+    readonly snackBar: MatSnackBar, private userService: UserServiceService, public dialog: MatDialog,private authService:AuthService,
+     private router:Router) { }
   //AIzaSyA3tHeCwkt4eXWSAHxWFpx2KzgVfIXfhQE
   ngOnInit() {
     //this.getAllBdLocations();
-    this.loggedInUserId = this.userService.getLoggedinUserId()
+    if(this.authService.isLoggedIn()){
+      this.loggedInUserId = this.userService.getLoggedinUserId();
+    }
     this.getDistricts();
     this.getDivisions();
     this.getUpazilas();
@@ -95,9 +101,15 @@ export class BloodSearchComponent implements OnInit,OnDestroy {
     this.isLoading = false;
   }
   openMessageDialog(receiverId, name) {
-    this.dialog.open(SendMessageDialogComponent,{
-      data:{userId: receiverId, name: name},
-    });
+    if(this.authService.isLoggedIn()){
+      this.dialog.open(SendMessageDialogComponent,{
+        data:{userId: receiverId, name: name},
+      });
+    }
+    else{
+      this.router.navigate(['auth']);
+    }
+
   }
 
   resetSearch(){

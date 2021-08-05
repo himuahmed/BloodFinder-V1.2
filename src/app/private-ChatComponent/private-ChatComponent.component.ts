@@ -67,6 +67,16 @@ export class PrivateChatComponentComponent implements OnInit {
     console.log(obj);
   }
 
+  updateMessageStatus(receiverId){
+    this.privateChatService.updateMessageStatusInvoke(receiverId);
+  }
+
+  msgSeen(){
+    this.updateMessageStatus(this.chatWindowPerson);
+  }
+
+
+
   joinRoom(){
     this.privateChatService.joinInvoke();
   }
@@ -85,7 +95,7 @@ export class PrivateChatComponentComponent implements OnInit {
     this.message = new PrivateMessage();
   }
 //////// To show messages on chatbox
-  fetchMessages(receiverId, pageNumber?:number){
+ async fetchMessages(receiverId, pageNumber?:number){
     if(this.chatWindowPerson !== receiverId){
       this.messageArray = [];
     }
@@ -100,6 +110,7 @@ export class PrivateChatComponentComponent implements OnInit {
           tempArr.unshift(msg);
         })
         this.messageArray = tempArr;
+        this.updateMessageStatus(receiverId);
       }
     })
   }

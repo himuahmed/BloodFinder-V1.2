@@ -40,6 +40,10 @@ export class SidenavComponent implements OnInit, OnDestroy {
     }
   }
 
+  sideNavOperation(drawer:any){
+    this.toggleSideNav(drawer);
+  }
+
    logout(drawer:any){
       drawer.toggle();
       this.authService.logOut();

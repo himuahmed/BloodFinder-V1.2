@@ -1,9 +1,18 @@
 <section>
   <mat-toolbar class="toolbar mb-5">
     <mat-toolbar-row>
-      <span>Blood Bank</span>
+      <span (click)='sideNav()'>
+        <button *ngIf="isLoggedIn()" mat-icon-button disableRipple color="accent" ripple:false aria-label="Example icon button with a menu icon">
+          <mat-icon class="mb-6 color-white">menu</mat-icon>
+        </button>
+        Blood Bank
+      </span>
       <span class="example-spacer"></span>
-      <span *ngIf="isLoggedIn()" class="example-icon">{{personName}}</span>
+      <span *ngIf="!isLoggedIn()" class="example-icon">
+        <button mat-flat-button color='warn' [routerLink]="['/auth']">
+          Login/Signup
+        </button>
+      </span>
     </mat-toolbar-row>
   </mat-toolbar>
 </section>

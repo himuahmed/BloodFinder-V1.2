@@ -29,7 +29,7 @@
       <mat-divider class="mt-20"></mat-divider>
     </mat-accordion>
     <div class="mt-20 ml-20">
-      <a mat-button [routerLink]="['/dashboard']" >
+      <a mat-button [routerLink]="['']" >
         <mat-icon class="material-icons-outlined mr-10" aria-hidden="false" aria-label="logout icon">dashboard</mat-icon>
         Dashboard
       </a>
@@ -38,8 +38,8 @@
   
   <mat-drawer-content class="overflow-hidden" fxFlex="100" fxLayout="row">
     <div fxFlex="100" fxLayout="column">
-      <div (click)="toggleSideNav(drawer)">
-        <app-toolbar></app-toolbar>
+      <div >
+        <app-toolbar (sideNavOperation)='sideNavOperation(drawer)'></app-toolbar>
       </div>
       <div class="sidenav-content" fxFlex="100" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column">        
             <div fxFlex="100" class="enable-scrollbar">

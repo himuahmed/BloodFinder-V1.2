@@ -33,6 +33,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { PrivateChatComponentComponent } from './private-ChatComponent/private-ChatComponent.component';
 import { TimeagoModule } from 'ngx-timeago';
 import { SendMessageDialogComponent } from './SharedComponents/send-message-dialog/send-message-dialog.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -69,6 +70,7 @@ import { SendMessageDialogComponent } from './SharedComponents/send-message-dial
     MatDialogModule,
     ReactiveFormsModule,
     MatSelectModule,
+    MatTooltipModule,
     TimeagoModule.forRoot()
   ],
   providers: [

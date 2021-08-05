@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppPersonComponent } from './app-person.component';
-import { PersonRoutes } from './person.routing';
+/* import { PersonRoutes } from './person.routing'; */
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { PersonProfileComponent } from './personProfile/personProfile.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
@@ -25,7 +25,7 @@ import { AddPersonDetailsComponent } from './add-person-details/add-person-detai
 
 @NgModule({
   imports: [
-    PersonRoutes,
+/*     PersonRoutes, */
     CommonModule,
     MatProgressBarModule,
     MatSnackBarModule,

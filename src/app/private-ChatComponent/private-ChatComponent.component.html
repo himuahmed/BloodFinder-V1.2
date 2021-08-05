@@ -43,7 +43,7 @@
         </div> 
   
         <div fxLayout="row" fxLayout.xs="column">
-            <input matInput fxFlex="100"  type="text" placeholder="Start messaging......" class="chat-inputField" [(ngModel)]="message.Message"/>
+            <input (click)="msgSeen()" matInput fxFlex="100"  type="text" placeholder="Start messaging......" class="chat-inputField" [(ngModel)]="message.Message"/>
             <button mat-flat-button fxFlex="10" fxFlex.xs="100" class="send-btn" color="warn" (click)= "sendMessage()"><mat-icon aria-hidden="false" aria-label="Send">send</mat-icon>&nbsp;&nbsp;Send</button> 
         </div>
     </div>

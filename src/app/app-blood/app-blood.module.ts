@@ -4,7 +4,6 @@ import { AppBloodComponent } from './app-blood.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { BloodGroupsSummeryComponent } from './bloodGroupsSummery/bloodGroupsSummery.component';
-import { BloodRoutes } from './blood.routing';
 import { BloodSearchComponent } from './bloodSearch/bloodSearch.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
@@ -18,10 +17,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GlobalChatComponent } from '../global-chat/global-chat.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   imports: [
-    BloodRoutes,
     CommonModule,
     FlexLayoutModule,
     MatCardModule,
@@ -34,7 +33,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatPaginatorModule,
     MatButtonModule,
     BrowserAnimationsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTooltipModule
   ],
   declarations: [
     AppBloodComponent,
