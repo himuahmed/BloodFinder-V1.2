@@ -14,6 +14,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { orderBy as _orderBy, assign as _assign, filter as _filter, cloneDeep as _cloneDeep, remove as _remove } from 'lodash';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -68,7 +69,10 @@ export class AddPersonDetailsComponent implements OnInit,OnDestroy {
   und = undefined;
 
 
-  constructor(private userService:UserServiceService,readonly snackBar: MatSnackBar, private externalFileReaderService: ExternalFileReaderService,private formBuilder: FormBuilder,private router:Router) { }
+  constructor(private userService:UserServiceService,readonly snackBar: MatSnackBar, private externalFileReaderService: ExternalFileReaderService,
+    private formBuilder: FormBuilder,private router:Router,private readonly titleService: Title) {
+      this.titleService.setTitle("Add personal details")
+     }
 
   ngOnInit() {
     this.getPersonByUserId();

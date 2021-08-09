@@ -6,7 +6,12 @@
     <mat-card-content  >
       <div class="global-chat-box"  *ngIf="!failedToLoadMessage && !isLoading"  (scroll)="onScroll($event)" #globalChatScrollBar>
         <ul *ngIf="msgInboxArray.length > 0 && !failedToLoadMessage">
-          <li *ngFor="let mObj of msgInboxArray" [ngClass]="mObj.userId === currentUserId ? 'in-msg' : 'ex-msg'"><span *ngIf="mObj.userId !==  currentUserId "><span class="chatbox-username">{{mObj.user}} :&nbsp;</span></span><span class="msg-italic-style">{{mObj.message}}</span></li>
+          <li *ngFor="let mObj of msgInboxArray" [ngClass]="mObj.userId === currentUserId ? 'in-msg' : 'ex-msg'">
+            <span *ngIf="mObj.userId !==  currentUserId ">
+              <span class="chatbox-username">{{mObj.user}} :&nbsp;</span>
+            </span>
+            <span class="msg-italic-style" matTooltip='{{mObj.date |  date:"medium" }}' matTooltipPosition='above' >{{mObj.message}}</span>
+          </li>
         </ul>
       </div>
       <div class="global-chat-box" fxLayoutAlign="center center" *ngIf="isLoading">

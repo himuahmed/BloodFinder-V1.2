@@ -5,6 +5,7 @@ import { forEach as _forEach, cloneDeep as _cloneDeep } from 'lodash';
 import { UserServiceService } from '../shared-services/user-service.service';
 import { Person } from '../app-person/interfaces/person';
 import { AuthService } from '../auth/services/auth.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-private-ChatComponent',
@@ -25,7 +26,9 @@ export class PrivateChatComponentComponent implements OnInit {
   isMessaging = false;
   messageLodedFirstTime  = false;
   scrollToUpdate = false;
-  constructor(private privateChatService: PrivateChatServiceService, private userService:UserServiceService,private authService: AuthService) { }
+  constructor(private privateChatService: PrivateChatServiceService, private userService:UserServiceService,private authService: AuthService,private readonly titleService: Title) { 
+    this.titleService.setTitle('Messages');
+  }
   ngOnInit() {
     try{
       this,this.getLoggedInUser();

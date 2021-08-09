@@ -46,7 +46,7 @@
               <div *ngIf="messageArray.length > 0">
                 <div *ngFor="let mObj of messageArray">
                    <div *ngIf="mObj.sender !== currentUserId" class="messages messages--received">
-                      <div class="message"> {{mObj.message}} </div>
+                      <div class="message" matTooltip='{{mObj.createdAt |  date:"medium" }}' matTooltipPosition='right'> {{mObj.message}} </div>
                    </div>
                    <div *ngIf="mObj.sender === currentUserId" class="messages messages--sent">
                     <div class="message"> {{mObj.message}} </div>

@@ -14,6 +14,7 @@ import { orderBy as _orderBy, assign as _assign } from 'lodash'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -68,7 +69,10 @@ export class PersonProfileComponent implements OnInit,OnDestroy {
   und = undefined;
 
 
-  constructor(private userService:UserServiceService,readonly snackBar: MatSnackBar, private externalFileReaderService: ExternalFileReaderService,private formBuilder: FormBuilder,private router:Router) { }
+  constructor(private userService:UserServiceService,readonly snackBar: MatSnackBar, private externalFileReaderService: ExternalFileReaderService,
+    private formBuilder: FormBuilder,private router:Router,private readonly titleService: Title) { 
+      this.titleService.setTitle('Profile');
+    }
 
   ngOnInit() {
     console.log('person loaded');

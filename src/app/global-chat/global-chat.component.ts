@@ -2,6 +2,7 @@
 import { Component, OnInit, ViewChild, HostListener, ElementRef  } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
+import { Title } from '@angular/platform-browser';
 import { forEach as _forEach, cloneDeep as _cloneDeep } from 'lodash';
 import { Person } from '../app-person/interfaces/person';
 import { GlobalMessage } from '../global-interfaces/globalMessage';
@@ -19,7 +20,9 @@ export class GlobalChatComponent implements OnInit {
   @ViewChild('globalChatScrollBar') chatScrollBar: ElementRef;
 
 
-  constructor(private chatService: GlobalChatServiceService, private userService:UserServiceService) { }
+  constructor(private chatService: GlobalChatServiceService, private userService:UserServiceService,private readonly titleService: Title) {
+    this.titleService.setTitle('Blood Donors')
+   }
 
   mode: ProgressSpinnerMode = 'indeterminate';
   value = 50;

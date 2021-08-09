@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Person } from '../app-person/interfaces/person';
 import { AuthService } from '../auth/services/auth.service';
@@ -17,8 +18,9 @@ export class SidenavComponent implements OnInit, OnDestroy {
   personn:Person;
   panelOpenState = false;
   showBloodRequestPosts = true;
-  constructor(private authService: AuthService, private userService:UserServiceService, private router:Router, private privateChatService: PrivateChatServiceService) {
-
+  constructor(private authService: AuthService, private userService:UserServiceService, private router:Router, private privateChatService: PrivateChatServiceService,
+    private readonly titleService: Title) {
+      this.titleService.setTitle('Blood Donors')
    }
 
   ngOnInit() {

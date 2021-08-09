@@ -51,6 +51,9 @@ export class BloodSearchComponent implements OnInit,OnDestroy {
   isFiltered = false;
   loggedInUserId:string;
 
+  totalBloodDonors:number;
+  bloodDonorPageSize:number;
+
   bloodGroupList: bloodGroup[] = [
     {name: 'A RhD positive (A+)', value:'A+'},
     {name: 'A RhD negative (A-)', value:'A-'},
@@ -159,8 +162,11 @@ export class BloodSearchComponent implements OnInit,OnDestroy {
   getAllBloodDonors(pageNumber?, pageSize?){
     return this.bloodSearchService.getAllBloodDonors(pageNumber, pageSize).subscribe(res=> {
      if(res){
+       console.log('all blood donors');
        console.log(res);
        this.personList.data = res.result;
+       this.totalBloodDonors = res.pagination['totalCount'];
+       console.log(this.totalBloodDonors);
      }
     });
   }
