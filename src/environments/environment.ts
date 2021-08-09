@@ -5,6 +5,8 @@
 export const environment = {
   production: false,
   apiUrl: 'https://localhost:44322/api/'
+  //apiUrl: 'http://www.blooddonorsbd.somee.com/api/'
+  
 };
 
 /*

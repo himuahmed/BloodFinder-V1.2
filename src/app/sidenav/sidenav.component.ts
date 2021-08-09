@@ -31,7 +31,6 @@ export class SidenavComponent implements OnInit, OnDestroy {
   }
 
   toggleSideNav(drawer:any){
-    debugger
     this.personn = this.userService.loggedInPerson;
     this.isLoggedIn =  this.authService.isLoggedIn() ? true : false;
     if(this.isLoggedIn && this.personn)

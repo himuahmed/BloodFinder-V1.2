@@ -6,16 +6,30 @@
         <div class="global-chat-box">
           <ul>
             <li *ngFor="let mObj of chatListArr">
-            <mat-card class="mat-card-test" (click)="fetchMessages(mObj.personImChattingWith.userId)">
+            <mat-card  [ngClass]= "(mObj.lastMessage.isDelivered === true || mObj.lastMessage.sender === currentUser.userId) ? 'mat-card-test' : 'unread-message' "
+             (click)="fetchMessages(mObj.personImChattingWith.userId)">
               <div fxLayout="row" fxLayoutAlign="space-between center">
                 <span class="chatList-userName">{{mObj.personImChattingWith.fullName}}</span>
-                <span></span>
+                <span  *ngIf="!(mObj.lastMessage.isDelivered === true || mObj.lastMessage.sender === currentUser.userId)">
+                  <div fxLayout="row" fxLayoutAlign="space-between center">
+                      <mat-chip-list>
+                        <mat-chip color="primary" matTooltip="mark as read"  (click)="updateMessageStatus(mObj.personImChattingWith.userId)" >
+                        </mat-chip>
+                      </mat-chip-list>
+                    <!-- <button class="mark-as-read">mark as read</button> -->
+                  </div>
+                </span>
               </div>
               <div fxLayout="row" >
                 <p class="font-smaller text-disabled">{{mObj.lastMessage.message}}</p>
               </div>
-              <div fxLayout="row" fxLayoutAlign="end end">
+              <div fxLayout="row" fxLayoutAlign="space-between center">
                 <span class="font-smallest text-disabled">{{mObj.lastMessage.createdAt | timeago:live}}</span>
+<!--                   <mat-chip-list>
+                    <mat-chip color="primary"  (click)="updateMessageStatus(mObj.personImChattingWith.userId)" >
+
+                    </mat-chip>
+                  </mat-chip-list> -->
               </div>
             </mat-card>
           </li>
@@ -43,7 +57,7 @@
         </div> 
   
         <div fxLayout="row" fxLayout.xs="column">
-            <input (click)="msgSeen()" matInput fxFlex="100"  type="text" placeholder="Start messaging......" class="chat-inputField" [(ngModel)]="message.Message"/>
+            <input (click)="msgSeen();" matInput fxFlex="100"  type="text" placeholder="Start messaging......" class="chat-inputField" [(ngModel)]="message.Message"/>
             <button mat-flat-button fxFlex="10" fxFlex.xs="100" class="send-btn" color="warn" (click)= "sendMessage()"><mat-icon aria-hidden="false" aria-label="Send">send</mat-icon>&nbsp;&nbsp;Send</button> 
         </div>
     </div>

@@ -18,14 +18,14 @@ export const appRoutes: Routes = [
     path:'', component:SidenavComponent,
     children:[
       {path: '', component:AppBloodComponent},
-     /*  {path:'user', loadChildren:()=> import('./app-person/app-person.module').then(r=>r.AppPersonModule)}, */
+      /* {path:'user', loadChildren:()=> import('./app-person/app-person.module').then(r=>r.AppPersonModule)}, */
       {path:'user', component:PersonProfileComponent, canActivate:[AuthGuard]},
       {path:'user/add-person-info', component:AddPersonDetailsComponent, canActivate:[AuthGuard]},
       {path:'messages', component:PrivateChatComponentComponent, canActivate:[AuthGuard]},
     ]
   },
 
-  {path: '**', redirectTo: 'dashboard', pathMatch:'full'}
+  {path: '**', redirectTo: '', pathMatch:'full'}
 
 ];
 

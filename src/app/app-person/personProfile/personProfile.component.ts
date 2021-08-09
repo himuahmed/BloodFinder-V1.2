@@ -71,6 +71,7 @@ export class PersonProfileComponent implements OnInit,OnDestroy {
   constructor(private userService:UserServiceService,readonly snackBar: MatSnackBar, private externalFileReaderService: ExternalFileReaderService,private formBuilder: FormBuilder,private router:Router) { }
 
   ngOnInit() {
+    console.log('person loaded');
     this.getPerson();
     this.getAllBdLocations();
     this.updatePersonFormMethod();

@@ -34,6 +34,7 @@ import { PrivateChatComponentComponent } from './private-ChatComponent/private-C
 import { TimeagoModule } from 'ngx-timeago';
 import { SendMessageDialogComponent } from './SharedComponents/send-message-dialog/send-message-dialog.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatChipsModule} from '@angular/material/chips';
 
 
 @NgModule({
@@ -71,6 +72,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     ReactiveFormsModule,
     MatSelectModule,
     MatTooltipModule,
+    MatChipsModule,
     TimeagoModule.forRoot()
   ],
   providers: [

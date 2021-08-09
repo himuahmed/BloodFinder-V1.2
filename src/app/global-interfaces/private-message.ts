@@ -4,4 +4,5 @@ export class PrivateMessage {
     Receiver:string;
     Signature:string;
     CreatedAt: Date;
+    isDelivered:Boolean;
 }

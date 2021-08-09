@@ -23,6 +23,8 @@ export class PrivateChatComponentComponent implements OnInit {
   messageArray = [];
   pageNumber = 1;
   isMessaging = false;
+  messageLodedFirstTime  = false;
+  scrollToUpdate = false;
   constructor(private privateChatService: PrivateChatServiceService, private userService:UserServiceService,private authService: AuthService) { }
   ngOnInit() {
     try{
@@ -68,6 +70,14 @@ export class PrivateChatComponentComponent implements OnInit {
   }
 
   updateMessageStatus(receiverId){
+    console.log("status updated");
+    let msgArray = this.chatListArr;
+    _forEach(msgArray, function(msg){
+      if(receiverId === msg.personImChattingWith.userId){
+        msg.lastMessage.isDelivered = true;
+      }
+    })
+    this.chatListArr = msgArray;
     this.privateChatService.updateMessageStatusInvoke(receiverId);
   }
 
@@ -96,23 +106,28 @@ export class PrivateChatComponentComponent implements OnInit {
   }
 //////// To show messages on chatbox
  async fetchMessages(receiverId, pageNumber?:number){
+   
     if(this.chatWindowPerson !== receiverId){
       this.messageArray = [];
+      this.messageLodedFirstTime = false;
     }
-    pageNumber = this.pageNumber;
-    this.isMessaging = true;
-    this.chatWindowPerson = receiverId;
-    this.privateChatService.getMessages(receiverId,pageNumber,50).subscribe(res=>{
-      this.joinRoom();
-      if(res.result != null){
-        let tempArr = this.messageArray;
-        _forEach(res.result, function(msg){
-          tempArr.unshift(msg);
-        })
-        this.messageArray = tempArr;
-        this.updateMessageStatus(receiverId);
-      }
-    })
+    if(!this.messageLodedFirstTime || this.scrollToUpdate){
+      pageNumber = this.pageNumber;
+      this.isMessaging = true;
+      this.chatWindowPerson = receiverId;
+      this.privateChatService.getMessages(receiverId,pageNumber,50).subscribe(res=>{
+        this.joinRoom();
+        if(res.result != null){
+          let tempArr = this.messageArray;
+          _forEach(res.result, function(msg){
+            tempArr.unshift(msg);
+          })
+          this.messageLodedFirstTime = true;
+          this.messageArray = tempArr;
+          this.updateMessageStatus(receiverId);
+        }
+      })
+    }
   }
 
 

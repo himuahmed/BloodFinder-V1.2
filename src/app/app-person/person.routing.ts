@@ -13,4 +13,5 @@ const routes: Routes = [
    },
 ];
 
-export const PersonRoutes = RouterModule.forChild(routes); */
+export const PersonRoutes = RouterModule.forChild(routes);
+ */
