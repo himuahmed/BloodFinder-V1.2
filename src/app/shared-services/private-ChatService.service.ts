@@ -32,6 +32,7 @@ export class PrivateChatServiceService {
 
 
     constructor(private http: HttpClient, private authService: AuthService) {
+
       if(this.authService.isLoggedIn()){
         this.hubConnection.onclose(async () => {
           this.start();
@@ -72,7 +73,7 @@ export class PrivateChatServiceService {
       await this.hubConnection.start().then(() => {
         //this.getConnectionId()
         //this.hubConnection.invoke("Join");
-        
+        this.joinInvoke();
       })
       .catch((err) => console.log('error while establishing signalr connection: ' + err));
       await this.joinRoom();

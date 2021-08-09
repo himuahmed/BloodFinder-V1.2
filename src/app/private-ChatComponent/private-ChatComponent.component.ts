@@ -36,6 +36,7 @@ export class PrivateChatComponentComponent implements OnInit {
     this.privateChatService.retrieveMappedObject().subscribe( (receivedObj: PrivateMessage) => { 
       this.addToInbox(receivedObj);
     }); 
+    //this.joinRoom();
     this.fetchChatList();
   }
 
@@ -97,8 +98,10 @@ export class PrivateChatComponentComponent implements OnInit {
  
   sendMessage(){
     this.message.Receiver = this.chatWindowPerson;
-    this.privateChatService.sendMessage(this.message);
-    this.message.Message = '';
+    if(this.message.Message != null){
+      this.privateChatService.sendMessage(this.message);
+    }
+    this.message.Message = null;
   }
 
   resetChatBoxTextField(){
@@ -116,7 +119,7 @@ export class PrivateChatComponentComponent implements OnInit {
       this.isMessaging = true;
       this.chatWindowPerson = receiverId;
       this.privateChatService.getMessages(receiverId,pageNumber,50).subscribe(res=>{
-        this.joinRoom();
+        //this.joinRoom();
         if(res.result != null){
           let tempArr = this.messageArray;
           _forEach(res.result, function(msg){
